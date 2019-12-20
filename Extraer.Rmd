@@ -130,4 +130,4 @@ head(tabla2)
 ```
 
 
-De esta forma se ha extraido de manera sencilla las tablas provenientes del PDF en cuestión. Para mayor comodidad revisar mi repositorio [aquí](https://github.com/Fr3ddy1/Extraer-PDF).
+De esta forma se ha extraido de manera sencilla las tablas provenientes del PDF en cuestión. Para mayor comodidad revisar mi repositorio <a href="https://github.com/Fr3ddy1/Extraer-PDF" target="_blank">aquí</a>
