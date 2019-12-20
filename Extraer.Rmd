@@ -1,7 +1,7 @@
 ---
 title: "Extracción de tablas de un PDF"
 author: "Freddy F. Tapia C."
-date: "13/12/2019"
+date: "20/12/2019"
 output: html_document
 ---
 
@@ -35,7 +35,7 @@ Esta función cuenta con los siguientes argumentos,
 * **columns**: lista que contiene un vector numérico de coordenas (x) sobre las cuales irán las columnas (opcional).
 * **guess**: valor lógico (TRUE ó FALSE), que indica si se quiere o no adivinar la ubicación de las tablas en el PDF. Por defecto es TRUE.
 * **method**: caracter que indica el método a aplicar para extraer la tabla ("decide", "lattice" ó "stream"). Por defecto se calcula usando el método "decide".
-* **output**: caracter ("character","data.frame","csv","tsv","json","asis")que indica la salida o estructura que tendrán los datos de la tabla.
+* **output**: caracter ("character","data.frame","csv","tsv","json","asis") que indica la salida o estructura que tendrán los datos de la tabla.
 * **outdir**: caracter que indica la ruta del archivo en caso de que se seleccione "csv","tsv" ó "json" en el argumento anterior.
 * **password**: caracter que indica la contraseña en caso de tener un archivo PDF con seguridad.
 * **encoding**: caracter que especifica la codificación del PDF (opcional).
@@ -44,7 +44,7 @@ Esta función cuenta con los siguientes argumentos,
 
 ### Ejemplo 1
 
-El PDF que se usará en este ejemplo se encuentra en la carpeta "examples" del paquete "tabulazer", el mismo se descarga automáticamente cuando se instala el paquete. Este PDF consta de tres páginas donde cada una cuenta con una tabla. Los siguientes comandos permiten extraer esas tablas.
+El PDF que se usará en este ejemplo se encuentra en la carpeta "examples" del paquete "tabulizer", el mismo se descarga automáticamente cuando se instala el paquete. Este PDF consta de tres páginas donde cada una cuenta con una tabla. Los siguientes comandos permiten extraer esas tablas.
 
 
 ```{r}
@@ -130,4 +130,4 @@ head(tabla2)
 ```
 
 
-De esta forma se ha extraido de manera sencilla las tablas provenientes del PDF en cuestión. Para mayor comodidad revisar mi repositorio .
+De esta forma se ha extraido de manera sencilla las tablas provenientes del PDF en cuestión. Para mayor comodidad revisar mi repositorio [aquí](https://github.com/Fr3ddy1/Extraer-PDF).
