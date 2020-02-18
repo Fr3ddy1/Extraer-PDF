@@ -1,0 +1,131 @@
+---
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# \textcolor{blue}{Extracción de tablas de un PDF}
+
+A continuación se explicará en detalle el proceso que permite la extracción de una tabla de datos de un PDF, con el fin de obtener esa información en el programa R, para así poder realizar cálculos o diferentes procesos sobre él. En principio este proceso podria realizarse manualmente creando un dataframe y transcribiendo los datos, pero esto no sería para nada óptimo.
+
+Afortunadamente, existe un paquete que nos facilita esta tarea, el mismo lleva por nombre **Tabulizer**. Dentro de las funciones que cuenta este paquete están,
+
+* **extract_metadata**: esta función permite extraer la metadata del PDF, es decir, información sobre el autor, fecha de creación, fecha de modificación entre otras. 
+* **extract_tables**: esta función permite extraer tablas que se encuentran en el PDF.
+* **extract_text**: esta función permite extraer texto de un PDF y llevarlo a un string ó cadena de caracteres.
+* **get_page_dims**: esta función permite conocer las dimensiones de la página del PDF en cuestión.
+* **locate_areas**: esta función me permite localizar un área específica dentro del PDF.
+* **make_thumbnails**: esta función me permite generar imágenes en miniatura de cada hoja del PDF.
+* **split_pdf**: esta función me permite unir o separar las páginas de uno o varios PDF.
+
+Cabe destacar que en esta ocasión sólo se va a explicar el uso de la funcion **"extract_tables"**.
+
+
+## \textcolor{blue}{Uso de la función} extract_tables
+
+Esta función cuenta con los siguientes argumentos,
+
+* **file**: caracter que indica el nombre y la ruta del PDF.
+* **pages**: entero que especifica la ó las páginas a extraer (opcional).
+* **area**: lista que debe contener las coordenadas de la tabla a extraer (opcional).
+* **columns**: lista que contiene un vector numérico de coordenas (x) sobre las cuales irán las columnas (opcional).
+* **guess**: valor lógico (TRUE ó FALSE), que indica si se quiere o no adivinar la ubicación de las tablas en el PDF. Por defecto es TRUE.
+* **method**: caracter que indica el método a aplicar para extraer la tabla ("decide", "lattice" ó "stream"). Por defecto se calcula usando el método "decide".
+* **output**: caracter ("character","data.frame","csv","tsv","json","asis") que indica la salida o estructura que tendrán los datos de la tabla.
+* **outdir**: caracter que indica la ruta del archivo en caso de que se seleccione "csv","tsv" ó "json" en el argumento anterior.
+* **password**: caracter que indica la contraseña en caso de tener un archivo PDF con seguridad.
+* **encoding**: caracter que especifica la codificación del PDF (opcional).
+* **copy**: valor lógico, que indica si el archivo original se debe o no copiar antes de realizar los procesos sobre él.
+
+
+## \textcolor{blue}{Ejemplo 1}
+
+El PDF que se usará en este ejemplo se encuentra en la carpeta "examples" del paquete "tabulizer", el mismo se descarga automáticamente cuando se instala el paquete. Este PDF consta de tres páginas donde cada una cuenta con una tabla. Los siguientes comandos permiten extraer esas tablas.
+
+
+```{r}
+#Cargo paquete
+library(tabulizer)
+
+#Genero ruta del archivo
+f <- system.file("examples", "data.pdf", package = "tabulizer")
+
+#Uso función para extraer las tablas
+f1 <-  extract_tables(f,output = "data.frame")
+
+#Muestro dataframe de la primera hoja
+f1[[1]]
+
+#Muestro dataframe de la segunda hoja
+f1[[2]]
+
+#Muestro dataframe de la tercera hoja
+f1[[3]]
+
+```
+
+Es importante señalar que la función "extract_tables" me devuelve una lista donde en cada elemento se encontrará una tabla. Con el fin de ver la estructura y clase de cada columna se usa el comando "str",
+
+```{r}
+#estructura tabla 1
+str(f1[[1]])
+
+#estructura tabla 2
+str(f1[[2]])
+
+#estructura tabla 3
+str(f1[[3]])
+
+```
+
+de esta manera se han extraido las tres tablas que posee este documento PDF.
+
+
+## \textcolor{blue}{Ejemplo 2}
+
+Para este ejemplo se usará un PDF localizado en una dirección específica, el mismo consta de dos hojas en las cuales hay información sobre las tablas de la distribución t-student.
+
+```{r}
+#Fijo ruta
+ruta <- "http://cms.dm.uba.ar/academico/materias/1ercuat2015/probabilidades_y_estadistica_C/tabla_tstudent.pdf"
+
+#Extraigo tablas
+tabla <- extract_tables(ruta,output = "data.frame")
+
+#Veo la estructura de la tabla
+str(tabla)
+
+#Muestro tabla 1 extraida
+head(tabla[[1]])
+
+#Muestro tabla 2 extraida
+head(tabla[[2]])
+```
+
+En este caso debido al título de la primera tabla que posee dos filas, se deben realizar algunas modificaciones sobre el resultado de la primera extracción,
+
+```{r}
+#Asigno primera tabla
+tabla1 <- tabla[[1]]
+
+#Asigno nombre a tabla 1
+names(tabla1) <- tabla1[2,]
+names(tabla1)[1] <- "Grados de Libertad"
+
+#Elinimo primera y segunda fila
+tabla1 <- tabla1[-c(1,2),-6]
+
+#Asigno segunda tabla
+tabla2 <- tabla[[2]]
+names(tabla2) <- names(tabla1)
+
+#Muestro tablas
+head(tabla1)
+head(tabla2)
+
+```
+
+
+De esta forma se ha extraido de manera sencilla las tablas provenientes del PDF en cuestión. Para mayor comodidad revisar mi repositorio <a href="https://github.com/Fr3ddy1/Extraer-PDF" target="_blank">aquí</a>
