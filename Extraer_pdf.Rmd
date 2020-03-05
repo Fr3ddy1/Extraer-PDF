@@ -8,6 +8,22 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # \textcolor{blue}{Extracción de tablas de un PDF}
 
+## \textcolor{blue}{Documento PDF}
+
+Un documento en PDF (Portable Document Format) es un archivo que está escrito bajo un formato de almacenamiento para documentos digitales independiente de plataformas de software o hardware. Este formato es de tipo compuesto (imagen vectorial, mapa de bits y texto). Debido a esta estructura el mismo posee una gran catidad de ventajas,
+
+* Es multiplataforma, es decir, puede ser visto en los principales sistemas operativos (GNU/Linux, MacOS, Unix, Windows).
+
+* Puede contener cualquier combinación de texto, elementos multimedia como vídeos o sonido.
+
+* Es uno de los formatos más utilizados para compatir información.
+
+* Su información puede ser cifrada con el fin de garantizar su seguridad.
+
+Sin embargo, debido a esta misma estructura la tarea de extraer alguna información, ya sea texto o tablas, a partir de estos documentos se complica. Existen diferentes alternativas para lograr este fin, como lo son el uso de Adobe Acrobat o algún programa para este fin en internet, sin embargo en esta ocasión se explicará el proceso de extraer tablas de datos a partir de un PDF utilizando el software estadístico R, esto con el fin de poder guardarlos en un documento excel, o hacer cualquier tipo de análisis con los mismos.
+
+## \textcolor{blue}{Paquete Tabulizer}
+
 A continuación se explicará en detalle el proceso que permite la extracción de una tabla de datos de un PDF, con el fin de obtener esa información en el programa R, para así poder realizar cálculos o diferentes procesos sobre él. En principio este proceso podria realizarse manualmente creando un dataframe y transcribiendo los datos, pero esto no sería para nada óptimo.
 
 Afortunadamente, existe un paquete que nos facilita esta tarea, el mismo lleva por nombre **Tabulizer**. Dentro de las funciones que cuenta este paquete están,
@@ -128,4 +144,13 @@ head(tabla2)
 ```
 
 
-De esta forma se ha extraido de manera sencilla las tablas provenientes del PDF en cuestión. Para mayor comodidad revisar mi repositorio <a href="https://github.com/Fr3ddy1/Extraer-PDF" target="_blank">aquí</a>
+De esta forma se ha extraido de manera sencilla las tablas provenientes del PDF en cuestión, sin tener la necesidad de utilizar un software pago o alguna herramienta de internet. Para este ejemplo sólo se usó la función "extract_tables", sin embargo mediante el uso de este paquete es posible realizar más cosas interesantes, como lo son,
+
+* Extraer texto de una página en específico.
+* Separar o unir páginas de uno o varios PDF.
+* Obtener metadata de un documento en específico.
+* Obtener el número de páginas, así como abtener el ancho y el alto de una página de un PDF.
+* Convertir en imagen una página en específico del documento PDF.
+
+Como próximos pasos, se propone extraer texto desde una página en específico, ó la conversión a imagen de una página de un PDF. Para mayor comodidad puede revisar mi repositorio en el siguiente
+[\textcolor{blue}{enlace}](https://github.com/Fr3ddy1/Extraer-PDF).
